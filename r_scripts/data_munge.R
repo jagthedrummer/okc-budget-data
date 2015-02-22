@@ -120,7 +120,7 @@ makeList<-function(x){
 
 fortree <- read.csv("../data/generated/tree.csv")
 
-jsonOut<-toJSON(list(name="okcbudget",children=makeList(fortree[-1])),pretty=TRUE)
+jsonOut<-toJSON(list(name="okcbudget",children=makeList(fortree)),pretty=TRUE)
 sink("../data/generated/nested_tree.json")
 cat(jsonOut)
 sink()
