@@ -124,3 +124,32 @@ jsonOut<-toJSON(list(name="okcbudget",children=makeList(fortree)),pretty=TRUE)
 sink("../data/generated/nested_tree.json")
 cat(jsonOut)
 sink()
+
+
+
+
+
+
+
+
+fortree <- okcbudget %>% 
+        group_by(Account.Description,LOBName,ProgramName,OperatingUnitDescription,FundDescription) %>%
+        summarise(Total=sum(FY2015.Budget))
+
+write.csv(fortree,"../data/generated/inverted_tree.csv",row.names=FALSE)
+
+
+
+myjson <- toJSON(fortree, pretty=TRUE)
+sink("../data/generated/inverted_tree.json")
+cat(myjson)
+sink()
+
+
+
+fortree <- read.csv("../data/generated/inverted_tree.csv")
+
+jsonOut<-toJSON(list(name="okcbudget",children=makeList(fortree)),pretty=TRUE)
+sink("../data/generated/inverted_tree.json")
+cat(jsonOut)
+sink()
